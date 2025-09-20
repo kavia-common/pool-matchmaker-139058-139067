@@ -1,82 +1,35 @@
-# Lightweight React Template for KAVIA
+# Pool Matchmaker – Frontend Web (Cosmic Energy)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A modern, lightweight React app for pool challenge matchmaking. Users can swipe nearby players, match, chat, and set up one-on-one challenges.
 
-## Features
+- Theme: Cosmic Energy (Indigo & Pink fusion)
+- Style: Modern, minimal, smooth transitions, rounded corners, subtle shadows, gradients
+- Layout: Bottom navigation (Matches, Challenges, Messages, Profile), Swipe interface, Modal dialogs for challenges/messaging
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+## Run
 
-## Getting Started
+- npm start – start dev server at http://localhost:3000
+- npm test – run tests (CI-friendly, non-watch)
+- npm run build – production build
 
-In the project directory, you can run:
+## Structure
 
-### `npm start`
+- src/theme/ThemeContext.js – light/dark mode and CSS variables integration
+- src/data/DataContext.js – mocked state (candidates, matches, challenges, messages)
+- src/components/NavBar.js – bottom tab navigation with theme toggle
+- src/components/ModalHost.js – global modal host/context
+- src/pages/SwipeView.js – Tinder-like swipe experience
+- src/pages/MatchesView.js – matched users with quick actions
+- src/pages/ChallengesView.js – challenge list and status updates
+- src/pages/MessagesView.js – threads and chat UI
+- src/pages/ProfileView.js – user details and preferences
+- src/pages/modals/ChallengeModal.js – create challenge
+- src/pages/modals/MessageModal.js – quick message compose
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+All backend actions are mocked/stubbed via DataContext.
 
-### `npm test`
+## Notes
 
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
-
-### Components
-
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
-
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- No external UI framework; pure React + CSS
+- Routing via react-router-dom v6
+- Accessibility: proper roles/labels for nav and modals

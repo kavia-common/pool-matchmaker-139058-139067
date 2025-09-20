@@ -1,49 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useMemo, useState } from 'react';
 import './App.css';
+import './index.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from 'react-router-dom';
+import NavBar from './components/NavBar';
+import SwipeView from './pages/SwipeView';
+import MatchesView from './pages/MatchesView';
+import ChallengesView from './pages/ChallengesView';
+import MessagesView from './pages/MessagesView';
+import ProfileView from './pages/ProfileView';
+import { ThemeProvider } from './theme/ThemeContext';
+import { DataProvider } from './data/DataContext';
+import { ModalHost } from './components/ModalHost';
 
 // PUBLIC_INTERFACE
-function App() {
-  const [theme, setTheme] = useState('light');
-
-  // Effect to apply theme to document element
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  // PUBLIC_INTERFACE
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
+function AppShell() {
+  /** Root application shell with navigation, routes, and modal host. */
+  const location = useLocation();
+  const hideNavOn = useMemo(() => [], []);
+  const showNav = !hideNavOn.includes(location.pathname);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <button 
-          className="theme-toggle" 
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-        >
-          {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
-        </button>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Current theme: <strong>{theme}</strong>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-root">
+      <main className="app-main">
+        <Routes>
+          <Route path="/" element={<Navigate to="/swipe" replace />} />
+          <Route path="/swipe" element={<SwipeView />} />
+          <Route path="/matches" element={<MatchesView />} />
+          <Route path="/challenges" element={<ChallengesView />} />
+          <Route path="/messages" element={<MessagesView />} />
+          <Route path="/profile" element={<ProfileView />} />
+          <Route path="*" element={<Navigate to="/swipe" replace />} />
+        </Routes>
+      </main>
+      {showNav && <NavBar />}
+      <ModalHost />
     </div>
   );
 }
 
-export default App;
+// PUBLIC_INTERFACE
+export default function App() {
+  /** Top-level App that wires providers and the router. */
+  const [theme, setTheme] = useState('light');
+
+  return (
+    <ThemeProvider initialTheme={theme} onThemeChange={setTheme}>
+      <DataProvider>
+        <Router>
+          <AppShell />
+        </Router>
+      </DataProvider>
+    </ThemeProvider>
+  );
+}
