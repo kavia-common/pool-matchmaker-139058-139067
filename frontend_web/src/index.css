@@ -17,6 +17,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--color-text);
+  /* base color still defined by CSS variables; actual visual bg is provided by app-root layers */
   background: var(--color-bg);
 }
 
